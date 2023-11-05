@@ -1,0 +1,15 @@
+Select * FROM Employee
+
+// By Using subquery and DENSE RANK function
+Select EmpName, Salary From(
+Select EmpName, Salary,DENSE_RANK() OVER(Order by Salary desc) As Ranking From Employee)
+As A Where Ranking=2
+
+// By using CTE and DENSE Rank function
+with HighestSalary_CTE As_(
+Select EmpName,Salary, DENSE_RANK() OVER(Order by Salary desc) As Ranking From Employee)
+Select EmpName, Salary From HighestSalary_CTE where Ranking=2
+
+//By Using Correlated Subquery
+Select EmpName, Salary From Employee E1 Where 1= (Select COUNT(Distinct Salary) From Employee E2
+Where E2.Salary > E1.Salary)
