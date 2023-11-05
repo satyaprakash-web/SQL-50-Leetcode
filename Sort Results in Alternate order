@@ -1,0 +1,4 @@
+SELECT * FROM Emp_tb
+SELECT Id, EmpName, Gender
+// ROW_Number() OVER(Partition by Gender Order By ID) As Row_Num
+FROM Emp_tb Order By Row_Number() OVER(Partition by Gender Order By ID), Gender DESC
